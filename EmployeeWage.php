@@ -14,21 +14,23 @@ class EmployeeWages{
    function empCheck(){
     $dailyHour = 0;
     $check =rand(0,2);
-    if( $check==EmployeeWages::FULL_TIME){
+    switch($check){
+    case EmployeeWages::FULL_TIME:
         echo "Employee is present"." ";
         $dailyHour = EmployeeWages::FULL_DAY_HOUR;
-    }
-    elseif($check==EmployeeWages::PART_TIME){
+        break;
+    
+    case EmployeeWages::PART_TIME:
         echo "Employee is present half day"." ";
         $dailyHour = EmployeeWages::PART_TIME_HOUR;  
-
-    }
-    else{
+        break;
+    default:
         echo "Employee is absent";
+        break;
     }
     $dailyWage=EmployeeWages::EMP_WAGE_PER_HOUR* $dailyHour;
     echo " Its daily wage is :". $dailyWage;
-}
+   }
 }
 EmployeeWages::welcomeMessage();//call static function through class
 $emp=new EmployeeWages();//create object of class
