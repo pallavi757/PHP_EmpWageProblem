@@ -44,33 +44,42 @@ class EmployeeWages
 
     /* function to compute daily 
 wage of employee*/
-    function dailyWage()
-    {
-        $this->wrkhrs = $this->empCheckAttendance();
-        $dailyWage = EmployeeWages::wagePerHr * $this->wrkhrs;
-        echo "Total hours:" . $this->wrkhrs . "\n";
-        echo "Daily Wage:" . $dailyWage . "\n";
-        return $dailyWage;
-    }
+    function dailyWage($wagePerHr) {
+    $this->wrkhrs = $this->empCheckAttendance();
+    $dailyWage = $wagePerHr*$this->wrkhrs;
+    echo "Total hours:".$this->wrkhrs ."\n";
+    echo "Daily Wage:".$dailyWage ."\n";
+    return $dailyWage;
+}
   /* function to compute monthly 
 wage of employee*/
-    function calculateMonthlyWage()
-    {
-        $monthlyWage = 0;
-        $day = 0;
-        $totalWorkingHrs = 0;
-        while ($day < EmployeeWages::workDaysPerMonth && $totalWorkingHrs <= EmployeeWages::maxHrs) {
-            $dailyWage = $this->dailyWage();
-            $monthlyWage += $dailyWage;
-            $totalWorkingHrs += $this->wrkhrs;
-            $day++;
-        }
-        echo "Total Working Hours:" . $totalWorkingHrs . "\n";
-        echo "Total Monthly Wage:" . $monthlyWage;
+function calculateMonthlyWage($workDaysPerMonth,$workHrsPerMonth,$wagePerHr) {
+    $monthlyWage = 0;
+    $day = 0;
+    $totalWorkingHrs = 0;
+    while($day<$workDaysPerMonth && $totalWorkingHrs <=$workHrsPerMonth) {
+        $dailyWage = $this->dailyWage($wagePerHr);
+        $monthlyWage+=$dailyWage;
+        $totalWorkingHrs+=$this->wrkhrs;
+        $day++;
+    }
+    echo "Total Working Hours:".$totalWorkingHrs ."\n";
+    echo "Total Monthly Wage:".$monthlyWage;
+}
+/* function to add company and 
+claculate monthly wage */
+function addCompany() {
+    $companyName = readline("Enter Company Name : ");
+    echo "Employee wage for $companyName \n";
+    $workDaysPerMonth = readline("Enter Working days per month:");
+    $workHrsPerMonth = readline("Enter Working hours per month:");
+    $wagePerHr = readline("Enter wage per hour:");
+    $this->calculateMonthlyWage($workDaysPerMonth,$workHrsPerMonth,$wagePerHr);
+    
     }
 }
 
 EmployeeWages::welcomeMessage();
 $emp = new EmployeeWages();
-$emp->calculateMonthlyWage();
+$emp->addCompany();
 ?>
