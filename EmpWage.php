@@ -3,39 +3,58 @@ class EmployeeWages{
     const wagePerHr = 20;
     const fullDayHr = 8;
     const partTimeHr = 4;
+    const workDaysPerMonth = 20;
+    const isFullTime = 1;
+    const isPartTime = 2;
+    const isAbsent = 0;
 
     //create static function to display welcome message
    static function welcomeMessage(){
     echo "....Welcome to employee wage problem...\n";
 }
 
-/* function to compute daily 
+ function empCheckAttendance() {
+    $empCheck = rand(0, 2);
+        switch ($empCheck) {
+            case EmployeeWages::isFullTime :
+                echo "Employee is present full time" . "\n";
+                return EmployeeWages::fullDayHr;
+                break;
+            
+            case EmployeeWages::isPartTime : 
+                echo "Employee is half day present" . "\n";
+                return EmployeeWages::partTimeHr;
+                break;
+            default:
+                echo "Employee is Absent";
+                return 0;
+                break;
+        }
+    }
+
+    /* function to compute daily 
 wage of employee*/
-static function dailyWage($wagePerHr,$hour) {
-    $dailyWage = $wagePerHr*$hour;
+ function dailyWage() {
+    $totalHours = $this->empCheckAttendance();
+    $dailyWage = EmployeeWages::wagePerHr*$totalHours;
+    echo "Total hours:".$totalHours ."\n";
+    echo "Daily Wage:".$dailyWage ."\n";
     return $dailyWage;
 }
 
- function empCheckAttendance() {
-    $empCheck = rand(0, 2);
-    switch ($empCheck) {
-        case 1:
-            echo "Employee is present full time"."\n";
-            $dailyWage = EmployeeWages::dailyWage(EmployeeWages::wagePerHr,EmployeeWages::fullDayHr);
-            echo "Daily Wage of Full time Employee:" . $dailyWage;
-            break;
-        case 2:
-            echo "Employee is half day present"  ."\n";
-            $partTimeWage = EmployeeWages::dailyWage(EmployeeWages::wagePerHr,EmployeeWages::partTimeHr);
-            echo "Daily Wage of Part time Presnt:" . $partTimeWage;
-            break;
-        default:
-            echo "Employee is Absent";
+function calculateMonthlyWage() {
+    $monthlyWage = 0;
+    for($day = 1;$day<=EmployeeWages::workDaysPerMonth;$day++) {
+        $dailyWage = $this->dailyWage();
+        $monthlyWage+=$dailyWage;
     }
+    echo "Total Monthly Wage:".$monthlyWage;
+
 }
 }
 
 EmployeeWages::welcomeMessage();
 $emp = new EmployeeWages();
-$emp ->empCheckAttendance();
+$emp->calculateMonthlyWage();
+//$emp ->empCheckAttendance();
 ?>
