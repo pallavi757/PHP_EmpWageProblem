@@ -7,6 +7,9 @@ class EmployeeWages{
     const isFullTime = 1;
     const isPartTime = 2;
     const isAbsent = 0;
+    const maxHrs = 100;
+    public $wrkhrs =0;
+
 
     //create static function to display welcome message
    static function welcomeMessage(){
@@ -35,19 +38,24 @@ class EmployeeWages{
     /* function to compute daily 
 wage of employee*/
  function dailyWage() {
-    $totalHours = $this->empCheckAttendance();
-    $dailyWage = EmployeeWages::wagePerHr*$totalHours;
-    echo "Total hours:".$totalHours ."\n";
+    $this->wrkhrs = $this->empCheckAttendance();
+    $dailyWage = EmployeeWages::wagePerHr * $this->wrkhrs;
+    echo "Total hours:".$this->wrkhrs ."\n";
     echo "Daily Wage:".$dailyWage ."\n";
     return $dailyWage;
 }
 
 function calculateMonthlyWage() {
     $monthlyWage = 0;
-    for($day = 1;$day<=EmployeeWages::workDaysPerMonth;$day++) {
+    $day = 0;
+    $totalWorkingHrs = 0;
+    while($day<EmployeeWages::workDaysPerMonth && $totalWorkingHrs <=EmployeeWages::maxHrs) {
         $dailyWage = $this->dailyWage();
         $monthlyWage+=$dailyWage;
+        $totalWorkingHrs+=$this->wrkhrs;
+        $day++;
     }
+    echo "Total Working Hours:".$totalWorkingHrs ."\n";
     echo "Total Monthly Wage:".$monthlyWage;
 
 }
