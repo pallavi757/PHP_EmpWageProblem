@@ -79,10 +79,7 @@ function calculateMonthlyWage() {
 calaculate monthly wage */
 function addCompany() {
     $companyName = readline("Enter Company Name : ");
-    echo "Employee wage for $companyName "."\n";
-   // $workDaysPerMonth = readline("Enter Working days per month:");
-    //$workHrsPerMonth = readline("Enter Working hours per month:");
-    //$wagePerHr = readline("Enter wage per hour:");
+    echo "Employee wage for $companyName \n";
     $this->calculateMonthlyWage();
     
     }
@@ -92,8 +89,12 @@ EmployeeWages::welcomeMessage();
 // $emp = new EmployeeWages();
 // $emp->addCompany();
 $comObj1=new EmployeeWages(30,30,130);
-$comObj1->addCompany();
-echo"\n";
+//$comObj1->addCompany();
 $comObj2=new EmployeeWages(20,20,100);
-$comObj2->addCompany();
+//$comObj2->addCompany();
+$empwageArray=array($comObj1,$comObj2);
+foreach($empwageArray as $details){
+    $details->addCompany();  
+}
+
 ?>
