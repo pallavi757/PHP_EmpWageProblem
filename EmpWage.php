@@ -1,24 +1,21 @@
 <?php
-
+include 'IEmployee.php';
 /*
-   Program for Employee Wage Add Multiple Companies Using Instance Variable instead of function Parameters
+   Employee Wage Program for Multiple Companies Using Interface
 */
-class EmployeeWages
+class EmployeeWages implements Employee
 {
-    const wagePerHr = 20;
+
     const fullDayHr = 8;
     const partTimeHr = 4;
-    const workDaysPerMonth = 20;
     const isFullTime = 1;
     const isPartTime = 2;
     const isAbsent = 0;
-    const maxHrs = 100;
     public $wrkhrs = 0;
     public $wagePerHr;
     public $workDaysPerMonth;
     public $workHrsPerMonth;
     
-
     //create static function to display welcome message
     static function welcomeMessage()
     {
@@ -86,15 +83,10 @@ function addCompany() {
 }
 
 EmployeeWages::welcomeMessage();
-// $emp = new EmployeeWages();
-// $emp->addCompany();
 $comObj1=new EmployeeWages(30,30,130);
-//$comObj1->addCompany();
 $comObj2=new EmployeeWages(20,20,100);
-//$comObj2->addCompany();
 $empwageArray=array($comObj1,$comObj2);
 foreach($empwageArray as $details){
     $details->addCompany();  
 }
-
 ?>
