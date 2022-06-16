@@ -87,6 +87,6 @@ $comObj1=new EmployeeWages(30,30,130);
 $comObj2=new EmployeeWages(20,20,100);
 $empwageArray=array($comObj1,$comObj2);
 foreach($empwageArray as $details){
-    $details->addCompany();  
+     $details->addCompany();  
 }
 ?>
